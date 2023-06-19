@@ -240,10 +240,18 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
+              <Link href='/profile'>
+                <MenuItem>Profile</MenuItem>
+              </Link>
+
+              <Link href='/setting'>
+                <MenuItem>Settings</MenuItem>
+              </Link>
+
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <Link href='/signOut'>
+                <MenuItem>Sign out</MenuItem>
+              </Link>
             </MenuList>
           </Menu>
         </Flex>
