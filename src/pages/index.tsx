@@ -18,7 +18,7 @@ export default function HomePage() {
     <Layout>
       <main>
         <section className='bg-white'>
-          <p>Home Page</p>
+          <p>Index Home Page</p>
         </section>
       </main>
     </Layout>
