@@ -43,7 +43,7 @@ interface LinkItemProps {
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Home', icon: FiHome, href: 'home' },
-  { name: 'Chat', icon: FiMessageCircle, href: 'findFriends' },
+  { name: 'Chat', icon: FiMessageCircle, href: 'chat' },
   { name: 'Match', icon: FiSmile, href: 'match' },
   { name: 'Bug Report', icon: FiGithub, href: 'bugReport' },
   //{ name: 'Settings', icon: FiSettings, href: 'settings' },

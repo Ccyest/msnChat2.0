@@ -1,67 +1,94 @@
-import * as React from 'react';
-import { FormEvent } from 'react';
-import { useState } from 'react';
+import { Box, HStack, Text } from '@chakra-ui/react';
+import { Session, User as SupabaseUser } from '@supabase/supabase-js';
+import { AuthChangeEvent, Session as SupabaseSession } from '@supabase/supabase-js'
+import React, { useEffect,useState } from 'react';
 
 import Layout from '@/components/layout/Layout';
+import UserProfile from '@/components/profile/UserProfile';
+import SideBar from '@/components/profile/SideBar';
 
 import supabase from '@/config/supabaseClient';
+import EditProfile from '@/components/profile/EditProfile';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default () => {
-  //const seoTitle = ``;
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
+interface User {
+  avatarLink: string;
+  id: string;
+  email: string;
+  created_at: string;
+  bio: string;
+  matched_with: string[];
+  tags: string[];
+}
 
-  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+const ProfilePage: React.FC = () => {
+  const [toggleEditProfile,setToggleEditProfile] = useState(false)
 
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ email });
+  interface User {
+    avatarLink: string;
+    id: string;
+    email: string;
+    created_at: string;
+    bio: string;
+    matched_with: string[];
+    tags: string[];
+  }
 
-    if (error) {
-      alert(error.message);
-    } else {
-      alert('Check your email for the login link!');
-    }
-    setLoading(false);
-  };
+  const mockUser = {
+    avatarLink: 'images/MSN_image.png',
+    id: '123',
+    email: 'admin@gmail.com',
+    created_at: '06/10/2023',
+    bio: 'this is a user bio',
+    matched_with: ['123','234'],
+    tags: ['music','art','drawing'],
+  }
+  // const [user, setUser] = useState<User | null>(null);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     supabase.auth.onAuthStateChange((_event: AuthChangeEvent, session: SupabaseSession | null) => {
+  //       if (session) {
+  //         getUserData(session.user?.id || '');
+  //       }
+  //     });
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  // const getUserData = async (userId: string) => {
+  //   const { data, error } = await supabase
+  //     .from('User')
+  //     .select('*')
+  //     .eq('id', userId)
+  //     .single();
+
+  //   if (error) {
+  //     console.error('Error fetching user:', error);
+  //   } else {
+  //     setUser(data);
+  //   }
+  // };
+  const handleToggleEditProfile=()=>{
+    setToggleEditProfile(!toggleEditProfile)
+  }
+
+
 
   return (
     <Layout>
-      <main>
-        <section className='bg-white'>
-          <span>Profile Page</span>
-        </section>
-        <div className='row flex-center flex'>
-          <div className='col-6 form-widget'>
-            <h1 className='header'>Supabase + React</h1>
-            <p className='description'>
-              Sign in via magic link with your email below
-            </p>
-            <form className='form-widget' onSubmit={handleLogin}>
-              <div>
-                <input
-                  className='inputField'
-                  type='email'
-                  placeholder='Your email'
-                  value={email}
-                  required={true}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <button className='button block' disabled={loading}>
-                  {loading ? (
-                    <span>Loading</span>
-                  ) : (
-                    <span>Send magic link</span>
-                  )}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </main>
+    <Box>
+      <EditProfile isOpen={toggleEditProfile} onClose={handleToggleEditProfile}></EditProfile>
+      <HStack gap={'20%'}>
+
+      <SideBar></SideBar>
+      <UserProfile user = {mockUser} handleToggleEditProfile={handleToggleEditProfile}></UserProfile>
+      
+      </HStack>
+
+    </Box>
     </Layout>
   );
 };
+
+export default ProfilePage;

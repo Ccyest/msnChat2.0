@@ -4,6 +4,7 @@ import { ReactNode, useEffect } from 'react';
 
 //import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
+import Footer from '@/components/layout/Footer';
 
 interface DocsLayoutProps {
   children: ReactNode;
@@ -24,7 +25,7 @@ const Layout = ({ children }: DocsLayoutProps) => {
   return (
     <>
       <Header>
-        <Container maxW='7xl' flex='1 0 auto' py={2}>
+        <Container maxW='8xl' flex='1 0 auto' py={2}>
           {/*<Stack*/}
           {/*    direction={{base: 'column', lg: 'row'}}*/}
           {/*    spacing={{base: 0, lg: 8}}>*/}
@@ -39,7 +40,7 @@ const Layout = ({ children }: DocsLayoutProps) => {
           {children}
         </Container>
       </Header>
-      {/*<Footer />*/}
+      {<Footer />}
     </>
   );
 };
